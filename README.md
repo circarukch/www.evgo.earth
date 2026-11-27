@@ -9,8 +9,8 @@ or serve the folder locally with `python3 -m http.server` from this directory.
 
 ## Hosting
 
-Any static host works (Netlify, Vercel, Cloudflare Pages, GitHub Pages). Publish this folder
-(`apps/site`) as the site root.
+Any static host works (Netlify, Vercel, Cloudflare Pages, GitHub Pages). Publish the
+repository root as the site root.
 
 The domain's DNS is at GoDaddy and GoDaddy email is in use. When pointing the domain at the
 host, change only the website records (the `@` A record and the `www` CNAME). Do not change
