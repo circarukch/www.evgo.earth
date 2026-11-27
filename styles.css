@@ -268,3 +268,13 @@ a.pillar p { flex: 1; }
 .process p { color: var(--muted); margin: 0; }
 @media (max-width: 900px) { .process { grid-template-columns: 1fr 1fr; gap: 16px; } }
 @media (max-width: 560px) { .process { grid-template-columns: 1fr; } }
+
+/* Contact additions */
+.address { font-style: normal; font-size: 1.12rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); margin: 4px 0 14px; }
+.address strong { color: var(--white); font-size: 1.2rem; }
+.map-link { color: #9be27a; font-weight: 700; text-decoration: none; }
+.map-link:hover { text-decoration: underline; }
+.contact-line a { text-decoration: none; }
+.contact-line a:hover { color: var(--teal); }
+.btn-whatsapp { background: #25d366; box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); color: #fff; }
+.btn-whatsapp:hover { box-shadow: 0 12px 26px rgba(37, 211, 102, 0.4); }
