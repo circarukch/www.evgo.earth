@@ -155,8 +155,7 @@ p { margin: 0 0 1em; }
 }
 .vision-card::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 5px; background: var(--grad); }
 .vision-card .eyebrow { color: #9be27a; }
-.vision { font-size: 1.45rem; font-weight: 700; line-height: 1.4; margin: 0; position: relative; padding-top: 34px; }
-.vision::before { content: "\201C"; position: absolute; top: -18px; left: -4px; font-size: 4.5rem; line-height: 1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.vision { font-size: 1.45rem; font-weight: 700; line-height: 1.4; margin: 0; }
 .pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 56px; }
 a.pillar { text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
 a.pillar:hover { border-color: var(--teal); box-shadow: var(--shadow); transform: translateY(-2px); }
