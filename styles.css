@@ -237,7 +237,7 @@ a.pillar p { flex: 1; }
 /* Footer */
 .site-footer { background: #071538; color: rgba(255, 255, 255, 0.7); padding: 36px 0; font-size: 0.92rem; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-.site-footer img { height: 30px; width: auto; background: var(--white); padding: 6px 10px; border-radius: 10px; box-sizing: content-box; }
+.site-footer img { height: 34px; width: auto; filter: brightness(1.35) saturate(1.1); }
 .site-footer nav { display: flex; gap: 20px; flex-wrap: wrap; }
 .site-footer a { text-decoration: none; }
 .site-footer a:hover { color: var(--white); }
