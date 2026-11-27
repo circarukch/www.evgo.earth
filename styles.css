@@ -180,9 +180,26 @@ a.pillar p { flex: 1; }
 .split-media img { border-radius: var(--radius); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25); width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .split-media img.cutout { box-shadow: none; aspect-ratio: auto; object-fit: contain; max-height: 560px; width: auto; margin: 0 auto; border-radius: 0; mix-blend-mode: multiply; }
 .split-copy .btn { margin-top: 12px; }
-.station-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-.station-ctas .btn { margin-top: 0; }
-@media (max-width: 560px) { .station-ctas .btn { flex: 1 1 100%; justify-content: center; text-align: center; } }
+.station-ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; max-width: 520px; }
+.station-btn {
+  display: flex; align-items: center; gap: 10px; min-width: 0;
+  padding: 14px 16px; border-radius: 16px; background: var(--grad); color: var(--white); text-decoration: none;
+  box-shadow: 0 8px 20px rgba(18, 160, 138, 0.25); transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.station-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(18, 160, 138, 0.32); }
+.station-pin { flex: 0 0 auto; width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); fill: currentColor; }
+.station-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+.station-kicker { font-size: 0.74rem; font-weight: 600; opacity: 0.88; }
+.station-town { font-size: 1.05rem; font-weight: 800; overflow-wrap: anywhere; }
+.station-arrow { margin-left: auto; font-weight: 700; }
+@media (max-width: 600px) {
+  .station-ctas { max-width: none; gap: 10px; }
+  .station-btn { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "pin arrow" "text text"; row-gap: 10px; padding: 14px; }
+  .station-pin { grid-area: pin; width: 30px; height: 30px; padding: 6px; }
+  .station-arrow { grid-area: arrow; justify-self: end; align-self: start; }
+  .station-text { grid-area: text; }
+  .station-kicker { font-size: 0.72rem; }
+}
 .checks { list-style: none; padding: 0; margin: 0 0 1.5em; }
 .checks li { padding-left: 32px; position: relative; margin-bottom: 10px; }
 .checks li::before {
