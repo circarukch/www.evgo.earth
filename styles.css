@@ -338,7 +338,6 @@ a.pillar p { flex: 1; }
 .calc-row small { display: block; font-weight: 500; font-size: 0.78rem; color: rgba(255, 255, 255, 0.6); }
 .calc-row strong { font-size: 1.1rem; text-align: right; white-space: nowrap; }
 .calc-amount { font-size: 2rem !important; line-height: 1.1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.calc-row-buffer strong { color: #9be27a; }
 .calc-has-error .calc-result { opacity: 0.55; }
 .calc-card .calc-note { margin: 14px 0 0; font-size: 0.82rem; color: var(--muted) !important; line-height: 1.5; }
 @media (max-width: 900px) { .calc-grid { grid-template-columns: 1fr; gap: 28px; } }

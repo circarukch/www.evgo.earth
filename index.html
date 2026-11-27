@@ -215,37 +215,33 @@
           <div class="calc-fields">
             <label class="calc-field calc-field-wide">
               <span class="calc-label">EV battery pack size</span>
-              <span class="calc-input"><input id="calc-battery" type="number" inputmode="decimal" min="1" max="1000" step="any" value="30" required><span class="calc-unit">kWh</span></span>
+              <span class="calc-input"><input id="calc-battery" type="number" inputmode="decimal" min="1" max="1000" step="any" placeholder="e.g. 30" required><span class="calc-unit">kWh</span></span>
             </label>
             <label class="calc-field">
               <span class="calc-label">Current charge (SOC)</span>
-              <span class="calc-input"><input id="calc-current" type="number" inputmode="decimal" min="0" max="100" step="any" value="20" required><span class="calc-unit">%</span></span>
+              <span class="calc-input"><input id="calc-current" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="e.g. 20" required><span class="calc-unit">%</span></span>
             </label>
             <label class="calc-field">
               <span class="calc-label">Target charge (SOC)</span>
-              <span class="calc-input"><input id="calc-target" type="number" inputmode="decimal" min="0" max="100" step="any" value="80" required><span class="calc-unit">%</span></span>
+              <span class="calc-input"><input id="calc-target" type="number" inputmode="decimal" min="0" max="100" step="any" placeholder="e.g. 80" required><span class="calc-unit">%</span></span>
             </label>
             <label class="calc-field calc-field-wide">
               <span class="calc-label">Unit price at the station, incl. GST</span>
-              <span class="calc-input"><span class="calc-unit calc-unit-pre">₹</span><input id="calc-price" type="number" inputmode="decimal" min="0.01" max="1000" step="any" value="20" required><span class="calc-unit">per kWh</span></span>
+              <span class="calc-input"><span class="calc-unit calc-unit-pre">₹</span><input id="calc-price" type="number" inputmode="decimal" min="0.01" max="1000" step="any" placeholder="e.g. 20" required><span class="calc-unit">per kWh</span></span>
             </label>
           </div>
           <p class="calc-error" id="calc-error" role="alert" hidden></p>
           <div class="calc-result" aria-live="polite">
             <div class="calc-row">
               <span>Energy to add</span>
-              <strong id="calc-kwh">18.00 kWh</strong>
+              <strong id="calc-kwh">–</strong>
             </div>
             <div class="calc-row calc-row-main">
-              <span>Estimated amount</span>
-              <strong class="calc-amount" id="calc-amount">₹360.00</strong>
-            </div>
-            <div class="calc-row calc-row-buffer">
-              <span>Suggested wallet top-up<small>adds about 10% for charging losses</small></span>
-              <strong id="calc-topup">₹400</strong>
+              <span>Estimated amount<small>to add to your wallet</small></span>
+              <strong class="calc-amount" id="calc-amount">₹ –</strong>
             </div>
           </div>
-          <p class="calc-note">An estimate only. A charger draws slightly more energy from the grid than reaches the battery (losses from heat and conversion), so the amount billed is usually a little higher. Example values are shown; enter your own.</p>
+          <p class="calc-note">This is an estimate. The final amount billed at the station may vary slightly.</p>
         </form>
       </div>
     </section>
@@ -430,32 +426,30 @@
       if (!form) return;
       var el = function (id) { return document.getElementById(id); };
       var f = { b: el('calc-battery'), c: el('calc-current'), t: el('calc-target'), p: el('calc-price') };
-      var out = { kwh: el('calc-kwh'), amt: el('calc-amount'), top: el('calc-topup'), err: el('calc-error') };
-      var LOSS = 0.10;
+      var out = { kwh: el('calc-kwh'), amt: el('calc-amount'), err: el('calc-error') };
       var inr = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      var inr0 = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
       var kwhFmt = new Intl.NumberFormat('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       function num(i) { var v = i.value.trim(); return v === '' ? NaN : Number(v); }
       function mark(i, bad) { i.closest('.calc-input').classList.toggle('is-invalid', bad); i.setAttribute('aria-invalid', String(bad)); }
       function calc() {
         var b = num(f.b), c = num(f.c), t = num(f.t), p = num(f.p), msg = '';
-        var bad = { b: !(b > 0 && b <= 1000), c: !(c >= 0 && c <= 100), t: !(t >= 0 && t <= 100), p: !(p > 0 && p <= 1000) };
+        var empty = { b: f.b.value.trim() === '', c: f.c.value.trim() === '', t: f.t.value.trim() === '', p: f.p.value.trim() === '' };
+        var bad = { b: !empty.b && !(b > 0 && b <= 1000), c: !empty.c && !(c >= 0 && c <= 100), t: !empty.t && !(t >= 0 && t <= 100), p: !empty.p && !(p > 0 && p <= 1000) };
         if (bad.b) msg = 'Enter a battery size in kWh (for example 30).';
         else if (bad.c || bad.t) msg = 'Charge levels must be between 0% and 100%.';
-        else if (t <= c) { bad.t = true; msg = 'Target charge must be higher than current charge.'; }
+        else if (!empty.c && !empty.t && t <= c) { bad.t = true; msg = 'Target charge must be higher than current charge.'; }
         else if (bad.p) msg = 'Enter the unit price in ₹ per kWh, including GST.';
         Object.keys(bad).forEach(function (k) { mark(f[k], bad[k]); });
         if (msg) {
           out.err.textContent = msg; out.err.hidden = false; form.classList.add('calc-has-error');
-          out.kwh.textContent = '–'; out.amt.textContent = '₹ –'; out.top.textContent = '₹ –';
+          out.kwh.textContent = '–'; out.amt.textContent = '₹ –';
           return;
         }
         out.err.hidden = true; form.classList.remove('calc-has-error');
+        if (empty.b || empty.c || empty.t || empty.p) { out.kwh.textContent = '–'; out.amt.textContent = '₹ –'; return; }
         var kwh = b * (t - c) / 100, amount = kwh * p;
-        var topup = Math.ceil(amount * (1 + LOSS) / 10) * 10;
         out.kwh.textContent = kwhFmt.format(kwh) + ' kWh';
         out.amt.textContent = inr.format(amount);
-        out.top.textContent = inr0.format(topup);
       }
       form.addEventListener('input', calc);
       calc();
