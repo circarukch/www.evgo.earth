@@ -197,6 +197,7 @@ a.pillar p { flex: 1; }
 
 /* Chargers */
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.cards-2 { grid-template-columns: repeat(2, 1fr); margin-top: 32px; }
 .card {
   background: var(--white); border-radius: var(--radius); padding: 30px; box-shadow: var(--shadow);
   border: 1px solid var(--line); position: relative;
@@ -209,7 +210,7 @@ a.pillar p { flex: 1; }
   color: var(--white); background: var(--grad); padding: 4px 12px; border-radius: 999px; margin-bottom: 16px;
 }
 .platform {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 40px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 0;
   background: var(--navy); color: var(--white); border-radius: var(--radius); overflow: hidden;
 }
 .platform-item { padding: 30px; border-left: 1px solid rgba(255, 255, 255, 0.12); }
