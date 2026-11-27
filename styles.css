@@ -344,3 +344,9 @@ a.pillar p { flex: 1; }
   .calc-fields { gap: 12px; }
   .calc-amount { font-size: 1.6rem !important; }
 }
+.station-ctas-office { grid-template-columns: minmax(0, 300px); }
+@media (max-width: 600px) {
+  .station-ctas-office { grid-template-columns: 1fr; }
+  .station-ctas-office .station-btn { display: flex; }
+  .station-ctas-office .station-arrow { align-self: center; }
+}
