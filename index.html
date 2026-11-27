@@ -19,14 +19,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/evgo-ebus.webp" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=20261127b">
+  <link rel="stylesheet" href="styles.css?v=20261127c">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="site-header" id="top">
     <div class="wrap header-inner">
-      <a class="brand" href="#top" aria-label="EVGO home">
+      <a class="brand" href="./" aria-label="EVGO home, back to top">
         <img src="assets/evgo-logo.png" alt="EVGO" width="140" height="40">
       </a>
       <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
@@ -325,7 +325,7 @@
 
   <footer class="site-footer">
     <div class="wrap footer-inner">
-      <img src="assets/evgo-logo.png" alt="EVGO" width="112" height="32" loading="lazy">
+      <a class="brand" href="./" aria-label="EVGO home, back to top"><img src="assets/evgo-logo.png" alt="EVGO" width="112" height="32" loading="lazy"></a>
       <nav aria-label="Footer">
         <a href="#about">About</a>
         <a href="#mobility">Mobility</a>
@@ -350,6 +350,14 @@
       });
       nav.addEventListener('click', function (e) { if (e.target.closest('a')) close(); });
       window.addEventListener('resize', function () { if (window.innerWidth > 900) close(); });
+      document.querySelectorAll('a.brand').forEach(function (logo) {
+        logo.addEventListener('click', function (e) {
+          e.preventDefault();
+          close();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+        });
+      });
       document.getElementById('year').textContent = new Date().getFullYear();
       var header = document.querySelector('.site-header');
       function onScroll() { header.classList.toggle('scrolled', window.scrollY > 8); }
